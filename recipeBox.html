@@ -1,63 +1,103 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>recipeBox</title>
-    <link rel="stylesheet" href="recipeBox.css">
-    <script src="https://unpkg.com/vue"></script>
+    <head>
+        <title>recipeBox</title>
+        <link rel="stylesheet" href="recipeBox.css">
+        <script src="https://unpkg.com/vue"></script>
 
-</head>
-<body>
-    <h1 id="header">Recipe Box</h1>
-    
-    <div id="recipesListContainer">
-        <ul id="recipesList">
-        <li><a href=" ">Artichoke Pasta</a></li>
-        <li ><a class="even" href=" ">Garlic Chicken</a></li>
-     <li><a href=" ">Easy Chocolate Pie</a></li>
-        <li><a class="even" href=" ">Lime Chicken Tacos</a></li>
-             <li><a href=" ">Artichoke Dip</a></li>
-        
-        </ul>
-    
-     </div>
-    
+    </head>
+    <body>
+        <h1 id="header">Recipe Box</h1>
+        <div id="app">  
 
-    <div id="ingredientsListContainer">
-    <h2 class="name">Artichoke Pasta</h2>
-        
-    <div id="ingredientsDirections">
-        <h3 id="ingr">Ingredients:</h3>
-        
-            <ul class="ingredientsList">
-            <li >2 tablespoons butter</li>
-            <li>2 cloves garlic, minced</li>
-            <li>1 cup heavy cream</li>   
-            <li>3/4 teaspoon salt</li>
-            <li>1 teaspoon fresh-ground black pepper</li>
-            <li>2 1/2 cups canned, drained artichoke hearts (two 14-ounce cans), rinsed <br>and cut into halves or quarters</li>
-            <li>3/4 pound fusilli</li>
-            <li>1/2 cup grated Parmesan cheese</li>
-            <li>2 tablespoons chopped chives, scallion tops, or parsley</li>
-            </ul>
-         
-       
-        <h3 id="ingr">Directions:</h3>
-            <ol class="directionsList">
-                <li>In a medium saucepan, melt the butter over moderately low heat. Add the <br>garlic and cook for 30 seconds. Stir in the cream, salt, pepper, and <br>artichoke hearts. Cook until just heated through, about 3 minutes.</li>
-                <li>In a large pot of boiling, salted water, cook the fusilli until just done, about<br>13 minutes. Drain the pasta and toss with the cream sauce, Parmesan, and <br>chives.</li>
-        
-            </ol>
-        
-        
-        
-    </div>
-        
-        
-    
-    
-    </div>
-  
-    <script src="recipeBox.js"></script>
+            <div id="recipesListContainer">
+                <ul id="recipesList">
 
-</body>
+                    <li v-for="reteta in recipes" :key="reteta.id" @click="recipesDescription(reteta.title, reteta.description, reteta.directions)"><a href="#">{{ reteta.title }}</a></li>
+
+                </ul>
+
+                <!-- <ul id="recipesList">
+<li><a href=" ">Artichoke Pasta</a></li>
+<li ><a class="even" href=" ">Garlic Chicken</a></li>
+<li><a href=" ">Easy Chocolate Pie</a></li>
+<li><a class="even" href=" ">Lime Chicken Tacos</a></li>
+<li><a href=" ">Artichoke Dip</a></li>
+
+</ul>-->
+
+            </div>
+
+
+            <div id="ingredientsListContainer">
+                <!-- <h2 class="name">Artichoke Pasta</h2>-->
+
+                <p id="name">{{clickedTitleDescription }}</p>
+
+                <div id="ingredientsDirections">
+
+                    <h3 id="ingr">Ingredients:</h3>
+
+                    <ul class="ingredientsList">
+                        <li >{{ clickedRecipeDescription}}</li></ul>
+
+                    <h3 id="ingr">Directions:</h3>
+
+                    <ol class="directionsList">
+
+                        <li>{{ clickedDirectionsDescription}}</li>
+                    </ol>
+
+                    <!--   <h3 id="ingr">Ingredients:</h3>
+
+<ul class="ingredientsList">
+<li >2 tablespoons butter</li>
+<li>2 cloves garlic, minced</li>
+<li>1 cup heavy cream</li>   
+<li>3/4 teaspoon salt</li>
+<li>1 teaspoon fresh-ground black pepper</li>
+<li>2 1/2 cups canned, drained artichoke hearts (two 14-ounce cans), rinsed <br>and cut into halves or quarters</li>
+<li>3/4 pound fusilli</li>
+<li>1/2 cup grated Parmesan cheese</li>
+<li>2 tablespoons chopped chives, scallion tops, or parsley</li>
+</ul>
+
+
+<h3 id="ingr">Directions:</h3>
+<ol class="directionsList">
+<li>In a medium saucepan, melt the butter over moderately low heat. Add the <br>garlic and cook for 30 seconds. Stir in the cream, salt, pepper, and <br>artichoke hearts. Cook until just heated through, about 3 minutes.</li>
+<li>In a large pot of boiling, salted water, cook the fusilli until just done, about<br>13 minutes. Drain the pasta and toss with the cream sauce, Parmesan, and <br>chives.</li>
+
+</ol>
+-->
+
+
+                </div> 
+                <button id="myBtn">Add</button>
+
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <span class="close">&times;</span>
+                            <h3>Add a Recipe</h3>
+                        </div>
+                        <div class="modal-body">
+
+                            <div id="input">
+                                <textarea v-model="currentRecipe" placeholder="Type the name of the recipe here"></textarea>
+                                <button @click="saveRecipe">Save</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script src="recipeBox.js"></script>
+
+    </body>
 </html>
