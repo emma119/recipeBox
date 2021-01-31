@@ -13,7 +13,7 @@
             <div id="recipesListContainer">
                 <ul id="recipesList">
 
-                    <li v-for="reteta in recipes" :key="reteta.id" @click="recipesDescription(reteta.title, reteta.description, reteta.directions)"><a href="#">{{ reteta.title }}</a></li>
+                    <li v-for="reteta in recipes" :key="reteta.id" @click="recipesDescription(reteta)"><a href="#">{{ reteta.title }}</a></li>
 
                 </ul>
 
@@ -39,13 +39,14 @@
                     <h3 id="ingr">Ingredients:</h3>
 
                     <ul class="ingredientsList">
-                        <li >{{ clickedRecipeDescription}}</li></ul>
+                        <li v-for="ingredient in clickedRecipeDescription.split(',')" >{{ ingredient }}</li>
+                    </ul>
 
                     <h3 id="ingr">Directions:</h3>
 
                     <ol class="directionsList">
 
-                        <li>{{ clickedDirectionsDescription}}</li>
+                        <li v-for="directions in clickedDirectionsDescription.split(',')">{{ directions}}</li>
                     </ol>
 
                     <!--   <h3 id="ingr">Ingredients:</h3>
@@ -85,8 +86,25 @@
                         <div class="modal-body">
 
                             <div id="input">
-                                <textarea v-model="currentRecipe" placeholder="Type the name of the recipe here"></textarea>
-                                <button @click="saveRecipe">Save</button>
+                                <div id="inputTitle">
+                                    <h3>Recipe</h3>
+                                <textarea  v-model="currentRecipeTitle" placeholder="Type the name of the recipe here" rows="5" cols="40"></textarea>
+                                </div>
+                                
+                                <div id="inputIngredients">
+                                    <h3>Ingredients</h3>
+                                 <textarea v-model="currentRecipeDescription" placeholder="Type the ingedients of the recipe here separated by commas" rows="5" cols="40"></textarea>
+                                </div>
+                                
+                                <div id="inputDirections">
+                                    <h3>Directions</h3>
+                                 <textarea v-model="currentRecipeDirections" placeholder="Type directions of the recipe here separated by commas" rows="5" cols="40"></textarea>
+                                    <br>
+                                     <button  id="saveButton" @click="saveRecipe"><span class="closeSave">Save</span></button>
+                                     </div>
+                                
+                                
+                               
                             </div>
 
                         </div>

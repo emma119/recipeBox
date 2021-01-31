@@ -168,8 +168,8 @@ color:#481D24;
   padding: 0;
   border: 1px solid #888;
   width: 50%;
-  height:40%;
- 
+  height:60%;
+ overflow: scroll;
  
 }
 /* The Close Button */
@@ -187,6 +187,16 @@ color:#481D24;
   cursor: pointer;
 }
 
+.closeSave{
+    clear:both;
+}
+.closeSave:hover,
+.closeSave:focus {
+  
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .modal-header {
   padding: 2px 16px;
   background-color: #616196;
@@ -195,5 +205,34 @@ color:#481D24;
   text-align: center;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {
+    padding: 2px 16px;
+   
+}
+
+#inputTitle{
+    
+    text-align: center;
+    
+   
+}
+#inputIngredients{
+
+     text-align: center;
+    
+}
+#inputDirections{
+    
+     text-align: center;
+     
+}
+
+
+textarea {
+  resize: none;
+    
+}
+
+
+
 
