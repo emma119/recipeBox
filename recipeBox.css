@@ -87,6 +87,7 @@ color:#481D24;
     font-size:33px;
     margin-bottom:15px;
     font-weight:bold;
+    float:left;
 }
 
 #ingredientsDirections{
@@ -231,6 +232,14 @@ color:#481D24;
 textarea {
   resize: none;
     
+}
+
+#deleteButton{
+  float:left;
+  margin-left:18px;
+  margin-top:8px;
+  width:60px;
+  height:25px;
 }
 
 

@@ -17,13 +17,15 @@ var app = new Vue({
             clickedRecipeDescription: '',
             clickedTitleDescription: '',
             clickedDirectionsDescription: '',
-            currentId:5 
-           
+            currentId:5,
+            index: 0
 
         }
     }, 
+
+    /*refresh the page*/
     created:function(){
-                this.recipesDescription(this.recipes[0])
+                this.recipesDescription(0)
             },
     
     
@@ -39,14 +41,23 @@ var app = new Vue({
             this.currentRecipeDescription= '',
             this.currentRecipeDirections= ''
         },
-  
         
-        recipesDescription:function(reteta){
-            this.clickedTitleDescription=reteta.title,
-                this.clickedRecipeDescription = reteta.description,
-                this.clickedDirectionsDescription=reteta.directions
+        deleteRecipe:function(){
+            this.recipes.splice(this.index, 1);
+             this.clickedTitleDescription=''
+             this.clickedRecipeDescription=''
+             this.clickedDirectionsDescription=''
 
         },
+        
+        recipesDescription:function(clickedIndex){
+            var reteta = this.recipes[clickedIndex]
+            this.clickedTitleDescription=reteta.title
+                this.clickedRecipeDescription = reteta.description
+                this.clickedDirectionsDescription=reteta.directions
+                this.index=clickedIndex
+
+        }
 
 
        
@@ -62,7 +73,7 @@ var btn = document.getElementById("myBtn");
 
 var span = document.getElementsByClassName("close")[0];
 
-var span = document.getElementsByClassName("closeSave")[0];
+var saveButton = document.getElementsByClassName("closeSave")[0];
 
 btn.onclick = function() {
     modal.style.display = "block";
@@ -73,9 +84,14 @@ span.onclick = function() {
     modal.style.display = "none";
 }
 
+saveButton.onclick =function(){
+    modal.style.display = "none";
+}
+
 
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
 }
+

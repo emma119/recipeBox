@@ -13,7 +13,7 @@
             <div id="recipesListContainer">
                 <ul id="recipesList">
 
-                    <li v-for="reteta in recipes" :key="reteta.id" @click="recipesDescription(reteta)"><a href="#">{{ reteta.title }}</a></li>
+                    <li v-for="(reteta,index) in recipes" :key="reteta.id" @click="recipesDescription(index)"><a href="#">{{ reteta.title }}</a></li>
 
                 </ul>
 
@@ -31,8 +31,14 @@
 
             <div id="ingredientsListContainer">
                 <!-- <h2 class="name">Artichoke Pasta</h2>-->
-
+                <div id="header">
                 <p id="name">{{clickedTitleDescription }}</p>
+                    <button  id="deleteButton" @click="deleteRecipe">Delete </button>
+                 </div>       
+
+
+
+                <div style="clear:both"></div>
 
                 <div id="ingredientsDirections">
 
@@ -48,6 +54,7 @@
 
                         <li v-for="directions in clickedDirectionsDescription.split(',')">{{ directions}}</li>
                     </ol>
+                </div>
 
                     <!--   <h3 id="ingr">Ingredients:</h3>
 
@@ -73,7 +80,7 @@
 -->
 
 
-                </div> 
+                
                 <button id="myBtn">Add</button>
 
                 <div id="myModal" class="modal">
