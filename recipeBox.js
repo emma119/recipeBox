@@ -18,7 +18,13 @@ var app = new Vue({
             clickedTitleDescription: '',
             clickedDirectionsDescription: '',
             currentId:5,
-            index: 0
+            index: 0,
+            titleText: '',
+            descriptionText: '',
+            directionText: '',
+            modalShown: false,
+            addShown: false
+            
 
         }
     }, 
@@ -30,7 +36,18 @@ var app = new Vue({
     
     
     methods: {
-        saveRecipe(){
+
+        showModal : function(){
+            this.modalShown=true
+
+        },
+
+        hideModal : function(){
+            this.modalShown=false
+
+        },
+
+        addRecipe(){
             this.recipes.push({
                 id: this.currentId++,
                 title: this.currentRecipeTitle,
@@ -39,14 +56,31 @@ var app = new Vue({
             })
             this.currentRecipeTitle = '',
             this.currentRecipeDescription= '',
-            this.currentRecipeDirections= ''
+            this.currentRecipeDirections= '',
+            this.hideModal()
         },
         
+
         deleteRecipe:function(){
             this.recipes.splice(this.index, 1);
              this.clickedTitleDescription=''
              this.clickedRecipeDescription=''
              this.clickedDirectionsDescription=''
+
+        },
+
+        showEdit:function(){
+            this.showModal()
+            var reteta = this.recipes[this.index]
+            this.currentRecipeTitle = reteta.title
+            this.currentRecipeDescription = reteta.description
+            this.currentRecipeDirections = reteta.directions
+            this.addShown=false
+        },
+
+        showAdd:function(){
+            this.showModal()
+            this.addShown=true
 
         },
         
@@ -57,41 +91,11 @@ var app = new Vue({
                 this.clickedDirectionsDescription=reteta.directions
                 this.index=clickedIndex
 
-        }
+        },
 
 
        
     }
 })
 
-
-// Get the modal
-var modal = document.getElementById("myModal");
-
-
-var btn = document.getElementById("myBtn");
-
-var span = document.getElementsByClassName("close")[0];
-
-var saveButton = document.getElementsByClassName("closeSave")[0];
-
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-saveButton.onclick =function(){
-    modal.style.display = "none";
-}
-
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
 

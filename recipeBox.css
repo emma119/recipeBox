@@ -22,7 +22,7 @@ body{
     width: 70%;
     height: 100px;
     overflow: auto;
-    vertical-align: middle;
+    vertical-align:iddle;
     border-top:4px solid #084C61;
     border-right:8px solid #084C61;
     border-bottom:9px solid #084C61;
@@ -148,7 +148,6 @@ color:#481D24;
 
 /*modal*/
 .modal {
-  display: none; 
   position: fixed; 
   z-index: 1; 
   padding-top: 100px; 
@@ -235,6 +234,14 @@ textarea {
 }
 
 #deleteButton{
+  float:left;
+  margin-left:18px;
+  margin-top:8px;
+  width:60px;
+  height:25px;
+}
+
+#showEditButton{
   float:left;
   margin-left:18px;
   margin-top:8px;
