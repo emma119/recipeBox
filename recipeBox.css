@@ -233,22 +233,31 @@ textarea {
     
 }
 
-#deleteButton{
+.deleteButton{
   float:left;
   margin-left:18px;
-  margin-top:8px;
-  width:60px;
-  height:25px;
+  margin-top:0;
+  width:40px;
+  height:40px;
 }
 
-#showEditButton{
+.showEditButton{
   float:left;
-  margin-left:18px;
-  margin-top:8px;
-  width:60px;
-  height:25px;
+  margin-left:10px;
+  margin-top:0;
+  width:47px;
+  height:42px;
 }
 
+.showAdd{
+  width:40px;
+  height:40px;
+  margin-top:5px;
 
+}
+#bottomAdd{
+  width:40px;
+
+}
 
 

@@ -23,19 +23,27 @@ var app = new Vue({
             descriptionText: '',
             directionText: '',
             modalShown: false,
-            addShown: false
-            
-
+            addShown: false,
+            newRecipeTitle: '',
+            newRecipeDescription: '',
+            newRecipeDirections: '',
+            onHover:true,
+            onHover2:true,
+            onHover3:true
         }
     }, 
 
-    /*refresh the page*/
-    created:function(){
-                this.recipesDescription(0)
-            },
+    
+        /*refresh the page*/
+        created:function(){
+            
+                this.changeRecipesOnClick(0)
+        },
     
     
     methods: {
+
+
 
         showModal : function(){
             this.modalShown=true
@@ -47,6 +55,7 @@ var app = new Vue({
 
         },
 
+        /*add Recipe*/
         addRecipe(){
             this.recipes.push({
                 id: this.currentId++,
@@ -69,6 +78,8 @@ var app = new Vue({
 
         },
 
+
+        /*appear title/descriptions/directions in textarea*/
         showEdit:function(){
             this.showModal()
             var reteta = this.recipes[this.index]
@@ -76,15 +87,30 @@ var app = new Vue({
             this.currentRecipeDescription = reteta.description
             this.currentRecipeDirections = reteta.directions
             this.addShown=false
+
+
         },
 
         showAdd:function(){
             this.showModal()
             this.addShown=true
+            this.currentRecipeTitle = ''
+            this.currentRecipeDescription= ''
+            this.currentRecipeDirections= ''
+
+        },
+
+        editRecipe: function(){
+           
+            this.recipes[this.index].title=this.currentRecipeTitle
+            this.recipes[this.index].description=this.currentRecipeDescription
+            this.recipes[this.index].directions=this.currentRecipeDirections
+            this.hideModal()
+            this.changeRecipesOnClick(this.index)
 
         },
         
-        recipesDescription:function(clickedIndex){
+        changeRecipesOnClick:function(clickedIndex){
             var reteta = this.recipes[clickedIndex]
             this.clickedTitleDescription=reteta.title
                 this.clickedRecipeDescription = reteta.description

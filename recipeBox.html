@@ -12,7 +12,7 @@
             <div id="recipesListContainer">
                 <ul id="recipesList">
 
-                    <li v-for="(reteta,index) in recipes" :key="reteta.id" @click="recipesDescription(index)"><a href="#">{{ reteta.title }}</a></li>
+                    <li v-for="(reteta,index) in recipes" :key="reteta.id" @click="changeRecipesOnClick(index)"><a href="#">{{ reteta.title }}</a></li>
 
                 </ul>
 
@@ -22,11 +22,18 @@
 
 
             <div id="ingredientsListContainer">
-                <!-- <h2 class="name">Artichoke Pasta</h2>-->
+                
                 <div id="header">
                 <p id="name">{{clickedTitleDescription }}</p>
-                    <button  id="deleteButton" @click="deleteRecipe">Delete </button>
-                    <button  id="showEditButton" @click="showEdit">Edit</button>
+                <div @mouseover="onHover = false" @mouseleave="onHover = true">
+                    <img v-if="onHover" src="img/delete.png" class="deleteButton" />
+                    <img v-else src="img/delete_onhover.png" class="deleteButton" @click="deleteRecipe"/></div>
+
+
+                     <div @mouseover="onHover2 = false" @mouseleave="onHover2 = true">
+                    <img  v-if="onHover2" src="img/edit.png" class="showEditButton"/>
+                    <img  v-else src="img/edit_onhover.png" class="showEditButton" @click="showEdit"/>
+                </div>
                     
                  </div>       
 
@@ -53,9 +60,11 @@
             
 
 
-
+                <div id="bottomAdd" @mouseover="onHover3 = false" @mouseleave="onHover3 = true">
+                <img v-if="onHover3" src="img/add.png" class="showAdd"/>
+                <img v-else src="img/add_onhover.png" class="showAdd" @click="showAdd"/>
+                </div>
                 
-                <button id="showAdd" @click="showAdd">Add</button>
 
                 <div id="myModal" v-if="modalShown"  class="modal">
                     <div class="modal-content">
@@ -82,7 +91,11 @@
                                     <h3>Directions</h3>
                                  <textarea v-model="currentRecipeDirections" placeholder="Type directions of the recipe here separated by commas" rows="5" cols="40"></textarea>
                                     <br>
+
+                                    <!--add button-->
                                      <button  v-if="addShown" id="addButton" @click="addRecipe"><span class="closeSave">Add</span></button>
+
+                                     <!--edit button-->
                                      <button  v-else id="editButton" @click="editRecipe" ><span class="closeSave">Save</span></button>
 
                                      </div>
