@@ -30,20 +30,21 @@ var app = new Vue({
             onHover:true,
             onHover2:true,
             onHover3:true
+
         }
     }, 
 
     
-        /*refresh the page*/
+        
         created:function(){
-            
-                this.changeRecipesOnClick(0)
+            this.loadRecipes()
+            this.changeRecipesOnClick(0)
+
         },
-    
-    
-    methods: {
 
-
+    
+    methods: {      
+      
 
         showModal : function(){
             this.modalShown=true
@@ -52,10 +53,9 @@ var app = new Vue({
 
         hideModal : function(){
             this.modalShown=false
-
         },
 
-        /*add Recipe*/
+        
         addRecipe(){
             this.recipes.push({
                 id: this.currentId++,
@@ -67,6 +67,7 @@ var app = new Vue({
             this.currentRecipeDescription= '',
             this.currentRecipeDirections= '',
             this.hideModal()
+            this.storeRecipes()
         },
         
 
@@ -75,6 +76,7 @@ var app = new Vue({
              this.clickedTitleDescription=''
              this.clickedRecipeDescription=''
              this.clickedDirectionsDescription=''
+            this.storeRecipes()
 
         },
 
@@ -107,9 +109,24 @@ var app = new Vue({
             this.recipes[this.index].directions=this.currentRecipeDirections
             this.hideModal()
             this.changeRecipesOnClick(this.index)
+            this.storeRecipes()
 
         },
+
         
+
+        storeRecipes: function(){
+           
+           localStorage.setItem('recipes', JSON.stringify(this.recipes))
+        },
+
+        loadRecipes: function(){
+            if (localStorage.getItem('recipes')) {
+                this.recipes = JSON.parse(localStorage.getItem('recipes'))
+            }
+        },
+
+
         changeRecipesOnClick:function(clickedIndex){
             var reteta = this.recipes[clickedIndex]
             this.clickedTitleDescription=reteta.title
