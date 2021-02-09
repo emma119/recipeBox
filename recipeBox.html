@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>recipeBox</title>
-        <link rel="stylesheet" href="recipeBox.css">
-        <script src="https://unpkg.com/vue"></script>
+<head>
+    <title>recipeBox</title>
+    <link rel="stylesheet" href="recipeBox.css">
+    <script src="https://unpkg.com/vue"></script>
 
-    </head>
-    <body>
-        <h1 id="header">Recipe Box</h1>
-        <div id="app">
+</head>
+<body>
+    <h1 id="header">Recipe Box</h1>
+    <div id="app">
+        <div id="ingredientSearch">
+            <input v-model="searchedIngredient" placeholder="Search ingredient">
+           </div>
+
             <div id="recipesListContainer">
                 <ul id="recipesList">
 
@@ -16,103 +20,101 @@
 
                 </ul>
 
-
-
             </div>
 
 
             <div id="ingredientsListContainer">
-                
+
                 <div id="header">
-                <p id="name">{{clickedTitleDescription }}</p>
-                <div @mouseover="onHover = false" @mouseleave="onHover = true">
-                    <img v-if="onHover" src="img/delete.png" class="deleteButton" />
-                    <img v-else src="img/delete_onhover.png" class="deleteButton" @click="deleteRecipe"/></div>
+                    <p id="name">{{clickedTitleDescription }}</p>
+                    <div @mouseover="onHover = false" @mouseleave="onHover = true">
+                        <img v-if="onHover" src="img/delete.png" class="deleteButton" />
+                        <img v-else src="img/delete_onhover.png" class="deleteButton" @click="deleteRecipe"/></div>
 
 
-                     <div @mouseover="onHover2 = false" @mouseleave="onHover2 = true">
-                    <img  v-if="onHover2" src="img/edit.png" class="showEditButton"/>
-                    <img  v-else src="img/edit_onhover.png" class="showEditButton" @click="showEdit"/>
-                </div>
-                    
-                 </div>       
+                        <div @mouseover="onHover2 = false" @mouseleave="onHover2 = true">
+                            <img  v-if="onHover2" src="img/edit.png" class="showEditButton"/>
+                            <img  v-else src="img/edit_onhover.png" class="showEditButton" @click="showEdit"/>
+                        </div>
+
+
+                    </div>   
+
+                    <div style="clear:both"></div>
+
+                    <div id="ingredientsDirections">
+
+                        <h3 id="ingr">Ingredients:</h3>
+
+                        <ul class="ingredientsList">
+                            <li v-for="ingredient in clickedRecipeDescription.split('.')" >{{ ingredient }}</li>
+                        </ul>
+
+                        <h3 id="ingr">Directions:</h3>
+
+                        <ol class="directionsList">
+
+                            <li v-for="directions in clickedDirectionsDescription.split('.')">{{ directions}}</li>
+                        </ol>
+                        <br>
+                    </div>
 
 
 
-                <div style="clear:both"></div>
 
-                <div id="ingredientsDirections">
-
-                    <h3 id="ingr">Ingredients:</h3>
-
-                    <ul class="ingredientsList">
-                        <li v-for="ingredient in clickedRecipeDescription.split(',')" >{{ ingredient }}</li>
-                    </ul>
-
-                    <h3 id="ingr">Directions:</h3>
-
-                    <ol class="directionsList">
-
-                        <li v-for="directions in clickedDirectionsDescription.split(',')">{{ directions}}</li>
-                    </ol>
-                </div>
-
-            
+                    <div id="bottomAdd" @mouseover="onHover3 = false" @mouseleave="onHover3 = true">
+                        <img v-if="onHover3" src="img/add.png" class="showAdd"/>
+                        <img v-else src="img/add_onhover.png" class="showAdd" @click="showAdd"/>
+                    </div>
 
 
-                <div id="bottomAdd" @mouseover="onHover3 = false" @mouseleave="onHover3 = true">
-                <img v-if="onHover3" src="img/add.png" class="showAdd"/>
-                <img v-else src="img/add_onhover.png" class="showAdd" @click="showAdd"/>
-                </div>
-                
-
-                <div id="myModal" v-if="modalShown"  class="modal">
-                    <div class="modal-content">
+                    <div id="myModal" v-if="modalShown"  class="modal">
+                     <div class="modal-content"> 
                         <div class="modal-header">
 
                             <span class="close" @click="hideModal">&times;</span>
                             <h3>Add a Recipe</h3>
                         </div>
                         <div class="modal-body"
-                            >
+                        >
 
-                            <div id="input">
-                                <div id="inputTitle">
-                                    <h3>Recipe</h3>
+                        <div id="input">
+                            <div id="inputTitle">
+                                <h3>Recipe</h3>
                                 <textarea  v-model="currentRecipeTitle" placeholder="Type the name of the recipe here" rows="5" cols="40"></textarea>
-                                </div>
-                                
-                                <div id="inputIngredients">
-                                    <h3>Ingredients</h3>
-                                 <textarea v-model="currentRecipeDescription" placeholder="Type the ingedients of the recipe here separated by commas" rows="5" cols="40"></textarea>
-                                </div>
-                                
-                                <div id="inputDirections">
-                                    <h3>Directions</h3>
-                                 <textarea v-model="currentRecipeDirections" placeholder="Type directions of the recipe here separated by commas" rows="5" cols="40"></textarea>
-                                    <br>
-
-                                    <!--add button-->
-                                     <button  v-if="addShown" id="addButton" @click="addRecipe"><span class="closeSave">Add</span></button>
-
-                                     <!--edit button-->
-                                     <button  v-else id="editButton" @click="editRecipe" ><span class="closeSave">Save</span></button>
-
-                                     </div>
-                                
-                                
-                               
                             </div>
+
+                            <div id="inputIngredients">
+                                <h3>Ingredients</h3>
+                                <textarea v-model="currentRecipeDescription" placeholder="Type the ingedients of the recipe here separated by dot" rows="5" cols="40"></textarea>
+                            </div>
+
+                            <div id="inputDirections">
+                                <h3>Directions</h3>
+                                <textarea v-model="currentRecipeDirections" placeholder="Type directions of the recipe here separated by dot" rows="5" cols="40"></textarea>
+                                <br>
+
+                                <!--add button-->
+                                <button  v-if="addShown" id="addButton" @click="addRecipe"><span class="closeSave">Add</span></button>
+
+                                <!--edit button-->
+                                <button  v-else id="editButton" @click="editRecipe" ><span class="closeSave">Save</span></button>
+
+                            </div>
+
+
 
                         </div>
 
                     </div>
 
                 </div>
+
             </div>
         </div>
+    </div>
 
-        <script src="recipeBox.js"></script>
+    <script src="recipeBox.js"></script>
 
-    </body>
+</body>
 </html>
